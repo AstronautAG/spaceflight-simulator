@@ -4,7 +4,7 @@
 Spaceflight Simulator is a fun website where people can simulate their very own launch to the ISS!
 
 ## Inspiration
-I have strong interests in space exploration. In simulations, a key factor is how realistic the simulation is. In terms of launching a rocket, there are many factors involved. 
+I have a strong interest in space exploration. In simulations, a key factor is how realistic the simulation is. In terms of launching a rocket, there are many factors involved. 
 Of course, this project is a little bit simplified, but it gives an idea of how even one factor can affect all of the different variables. This is what inspired me to make a 
 simulation to launch rockets.
 
