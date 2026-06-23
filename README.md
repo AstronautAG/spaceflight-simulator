@@ -1,4 +1,5 @@
 # Spaceflight Simulator
+<img width="1695" height="820" alt="Screenshot 2026-06-23 at 5 37 00 PM" src="https://github.com/user-attachments/assets/efadbbb3-7a69-4001-b568-46f04a88d23f" />
 
 ## What is it?
 Spaceflight Simulator is a fun website where people can simulate their very own launch to the ISS!
