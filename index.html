@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Spaceflight Simulator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- 🌌 MAIN SIMULATION PANEL -->
+    <div class="panel">
+
+        <h1>Welcome to Spaceflight Simulator</h1>
+
+        <h2>MISSION TO ISS</h2>
+
+        <!-- =========================
+             MISSION PARAMETERS
+        ========================== -->
+        
+
+        <h4>Crew Size</h4>
+        <select id="crew">
+            <option value="0">Unmanned Mission</option>
+            <option value="2">2 astronauts</option>
+            <option value="4">4 astronauts</option>
+            <option value="6">6 astronauts</option>
+        </select>
+
+        <h4>Cargo Weight</h4>
+        <select id="weight">
+            <option value="500">500 kg</option>
+            <option value="1000">1000 kg</option>
+            <option value="2000">2000 kg</option>
+        </select>
+
+        <h4>Spacecraft</h4>
+        <select id="ship">
+            <option value="capsule">Capsule</option>
+            <option value="cargo">Cargo Ship</option>
+            <option value="explorer">Deep Space Explorer</option>
+        </select>
+
+    
+
+        <h4>Fuel Load</h4>
+        <input id="fuel" type="number">
+
+        <button onclick="launchMission()">
+            INITIATE LAUNCH SEQUENCE
+        </button>
+
+        <hr>
+
+        <!-- =========================
+             MISSION CONTROL OUTPUT
+        ========================== -->
+        <h2>Mission Control Console</h2>
+        <div id="console"></div>
+
+        <h2>Flight Status</h2>
+        <h2 id="ready"></h2>
+
+        <h2>Telemetry</h2>
+        <div id="telemetry">
+            ALTITUDE: 0 km<br>
+            VELOCITY: 0 km/s<br>
+            FUEL: 100%
+        </div>
+
+    
+
+    </div>
+
+
+    <!-- =========================
+         LAUNCH VISUALIZATION AREA
+    ========================== -->
+    <div id="launchArea">
+
+        <div id="ground"></div>
+
+        <div id="tower"></div>
+
+        <div id="smoke"></div>
+
+        <div id="rocket">
+            <div class="rocket-nose"></div>
+            <div class="rocket-body"></div>
+            <div class="rocket-fin-left"></div>
+            <div class="rocket-fin-right"></div>
+            <div class="rocket-window"></div>
+            <div class="rocket-flame"></div>
+        </div>
+
+    </div>
+
+    <script src="script.js"></script>
+
+</body>
+</html>
+
+

@@ -1,0 +1,441 @@
+/* =========================
+   NASA MISSION CONTROL THEME (REFINED)
+========================= */
+
+body {
+    margin: 0;
+    padding: 0;
+
+    font-family: Arial, sans-serif;
+    color: #d7e1ff;
+    text-align: center;
+
+    background: radial-gradient(circle at center, #0b1020 0%, #05070f 100%);
+
+    overflow-x: hidden;
+}
+
+/* =========================
+   STARFIELD (IMPROVED DEPTH)
+========================= */
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+
+    background-image:
+        radial-gradient(white 1px, transparent 1px),
+        radial-gradient(rgba(255,255,255,0.5) 1px, transparent 1px);
+
+    background-size: 120px 120px, 80px 80px;
+    background-position: 0 0, 40px 40px;
+
+    opacity: 0.25;
+    pointer-events: none;
+}
+
+/* =========================
+   MAIN PANEL
+========================= */
+
+.panel {
+    max-width: 900px;
+    margin: 30px auto;
+    padding: 25px;
+
+    background: rgba(15, 20, 35, 0.92);
+    border: 1px solid rgba(100,150,255,0.25);
+    border-radius: 15px;
+
+    box-shadow:
+        0 0 25px rgba(0,0,0,0.7),
+        0 0 50px rgba(40,80,255,0.15);
+}
+
+/* =========================
+   INPUT CONTROLS
+========================= */
+
+select,
+input {
+    padding: 10px;
+    margin: 8px;
+
+    border-radius: 8px;
+    border: none;
+
+    font-size: 15px;
+}
+
+button {
+    padding: 12px 24px;
+    border-radius: 10px;
+    border: none;
+
+    background: #3f6fff;
+    color: white;
+
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+button:hover {
+    transform: scale(1.05);
+    background: #2959e6;
+}
+
+/* =========================
+   STATUS COLORS
+========================= */
+
+.success {
+    color: #00ff88;
+    font-weight: bold;
+}
+
+.fail {
+    color: #ff5b5b;
+
+    text-shadow:
+        0 0 10px rgba(255,0,0,0.8),
+        0 0 20px rgba(255,0,0,0.4);
+
+    font-weight: bold;
+}
+
+/* =========================
+   CONSOLE (MISSION LOGS)
+========================= */
+
+#console {
+    background: #000;
+    color: #66ffcc;
+
+    font-family: monospace;
+    text-align: left;
+
+    padding: 15px;
+    margin-top: 20px;
+
+    height: 300px;
+    font-size: 13px;
+    letter-spacing: 0.5px;
+    line-height: 1.4;
+    overflow-y: auto;
+
+    border-radius: 10px;
+
+    box-shadow: inset 0 0 15px rgba(0,255,180,0.25);
+}
+
+/* =========================
+   TELEMETRY
+========================= */
+
+#telemetry {
+    background: #0a0f1a;
+    color: #00ffcc;
+
+    font-family: monospace;
+
+    padding: 10px;
+    margin-top: 10px;
+
+    border-radius: 8px;
+}
+
+/* =========================
+   OUTPUT
+========================= */
+
+#ready {
+    min-height: 50px;
+    margin-top: 20px;
+}
+
+/* =========================
+   LAUNCH AREA (FIXED DEPTH)
+========================= */
+
+#launchArea {
+    position: relative;
+
+    width: 100%;
+    height: 500px;
+
+    margin-top: 50px;
+
+    overflow: visible;
+}
+
+/* =========================
+   GROUND (ADDED DEPTH)
+========================= */
+
+#launchArea::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+
+    width: 100%;
+    height: 90px;
+
+    background: linear-gradient(to top, #05070f, transparent);
+}
+
+/* =========================
+   LAUNCH TOWER (CENTER FIXED)
+========================= */
+
+#tower {
+    position: absolute;
+
+    left: calc(50% - 90px);
+    bottom: 0;
+
+    width: 55px;
+    height: 260px;
+
+    background: linear-gradient(
+        to right,
+        #2b2f3a,
+        #444a5a,
+        #2b2f3a
+    );
+
+    border-radius: 5px;
+}
+
+/* tower lights */
+#tower::before,
+#tower::after {
+    content: "";
+    position: absolute;
+
+    width: 10px;
+    height: 10px;
+
+    border-radius: 50%;
+    background: red;
+
+    left: 20px;
+
+    animation: blink 1s infinite;
+}
+
+#tower::before { top: 40px; }
+#tower::after { top: 110px; }
+
+@keyframes blink {
+    50% { opacity: 0.2; }
+}
+
+/* =========================
+   ROCKET WRAPPER (CRITICAL FIX)
+========================= */
+
+#rocket {
+    position: absolute;
+
+    width: 50px;
+    height: 140px;
+
+    left: 50%;
+    bottom: 0;
+
+
+    transform: translateX(-50%);
+
+    z-index: 100;
+}
+
+/* =========================
+   ROCKET BODY
+========================= */
+
+.rocket-body {
+    position: absolute;
+
+    width: 50px;
+    height: 100px;
+
+    left: 0;
+    top: 40px;
+
+    background: linear-gradient(
+        to bottom,
+        white,
+        #d0d6df
+    );
+
+    border-radius: 8px;
+}
+
+/* =========================
+   ROCKET NOSE (FIXED ALIGNMENT)
+========================= */
+
+.rocket-nose {
+    position: absolute;
+
+    top: 0;
+    left: 0;
+
+    width: 0;
+    height: 0;
+
+    border-left: 25px solid transparent;
+    border-right: 25px solid transparent;
+    border-bottom: 40px solid white;
+}
+
+/* =========================
+   WINDOW
+========================= */
+
+.rocket-window {
+    position: absolute;
+
+    top: 65px;
+    left: 17px;
+
+    width: 16px;
+    height: 16px;
+
+    border-radius: 50%;
+    background: #7cd3ff;
+
+    border: 2px solid white;
+}
+
+/* =========================
+   FINS
+========================= */
+
+.rocket-fin-left {
+    position: absolute;
+
+    bottom: 0;
+    left: -12px;
+
+    width: 0;
+    height: 0;
+
+    border-right: 15px solid red;
+    border-top: 25px solid transparent;
+}
+
+.rocket-fin-right {
+    position: absolute;
+
+    bottom: 0;
+    right: -12px;
+
+    width: 0;
+    height: 0;
+
+    border-left: 15px solid red;
+    border-top: 25px solid transparent;
+}
+
+/* =========================
+   FLAME (IMPROVED REALISM)
+========================= */
+
+.rocket-flame {
+    position: absolute;
+
+    width: 24px;
+    height: 40px;
+
+    left: 13px;
+    bottom: -35px;
+
+    background:
+        radial-gradient(
+            ellipse at center,
+            #ffff99,
+            orange,
+            red
+        );
+
+    border-radius: 50%;
+
+    opacity: 0;
+
+    pointer-events: none;
+}
+
+@keyframes flameFlicker {
+
+    0% {
+        height: 36px;
+    }
+
+    50% {
+        height: 46px;
+    }
+
+    100% {
+        height: 38px;
+    }
+}
+
+/* =========================
+   SPACE TRANSITIONS
+========================= */
+
+body.launching {
+    animation: shake 0.15s infinite;
+}
+
+@keyframes shake {
+    0% { transform: translateX(0); }
+    50% { transform: translateX(2px); }
+    100% { transform: translateX(-2px); }
+}
+
+body.space {
+    background: radial-gradient(circle, #000, #000010);
+    transition: 3s ease;
+}
+
+
+
+.panel {
+    position: relative;
+    z-index: 2;
+}
+
+
+#console, #ready, #telemetry, #badges {
+    position: relative;
+    z-index: 2;
+}
+
+#ready {
+    font-size: 28px;
+    font-weight: bold;
+    letter-spacing: 3px;
+
+    margin-top: 15px;
+
+    color: #00ffcc;
+
+    text-shadow:
+        0 0 10px rgba(0,255,200,0.8),
+        0 0 20px rgba(0,255,200,0.5);
+
+    transition: all 0.2s ease;
+}
+
+/* Countdown pulse effect */
+.countdown-alert {
+    color: #ffcc00 !important;
+    text-shadow:
+        0 0 10px rgba(255,200,0,1),
+        0 0 25px rgba(255,140,0,0.8);
+
+    transform: scale(1.1);
+}
