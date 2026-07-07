@@ -7,10 +7,18 @@
 
 <body>
 
-    <!-- 🌌 MAIN SIMULATION PANEL -->
     <div class="panel">
-
         <h1>Welcome to Spaceflight Simulator</h1>
+        <h3>Never launched a rocket before? You are at the right place!</h3>
+        <h4>In this simulation, you will adjust different parameters: crew size, cargo 
+            weight, spacecraft type, and fuel load (in kg). After you click the "Initiate
+            Launch Sequence" button, the simulation will determine if your mission is 
+            successful based on randomized weather activity and the parameters you set and
+            how much risk it creates.
+        </h4>
+
+    </div>
+    <div class="panel">
 
         <h2>MISSION TO ISS</h2>
 
@@ -43,11 +51,18 @@
 
     
 
-        <h4>Fuel Load</h4>
+        <h4>Fuel Load (kg)</h4>
+        <p>P.S. Rockets need a lot of fuel to launch! (NASA's rockets use 
+            hundreds of thousands of kg of fuel to launch into space)
+        </p>
         <input id="fuel" type="number">
 
         <button onclick="launchMission()">
             INITIATE LAUNCH SEQUENCE
+        </button>
+
+        <button onclick="resetMission()">
+            RESET MISSION
         </button>
 
         <hr>

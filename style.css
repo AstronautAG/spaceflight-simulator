@@ -1,6 +1,3 @@
-/* =========================
-   NASA MISSION CONTROL THEME (REFINED)
-========================= */
 
 body {
     margin: 0;
@@ -15,9 +12,7 @@ body {
     overflow-x: hidden;
 }
 
-/* =========================
-   STARFIELD (IMPROVED DEPTH)
-========================= */
+
 
 body::before {
     content: "";
@@ -85,24 +80,13 @@ button:hover {
     background: #2959e6;
 }
 
-/* =========================
-   STATUS COLORS
-========================= */
 
 .success {
     color: #00ff88;
     font-weight: bold;
 }
 
-.fail {
-    color: #ff5b5b;
 
-    text-shadow:
-        0 0 10px rgba(255,0,0,0.8),
-        0 0 20px rgba(255,0,0,0.4);
-
-    font-weight: bold;
-}
 
 /* =========================
    CONSOLE (MISSION LOGS)
@@ -345,26 +329,35 @@ button:hover {
 
 .rocket-flame {
     position: absolute;
-
     width: 24px;
-    height: 40px;
+    height: 60px;
 
     left: 13px;
-    bottom: -35px;
+    bottom: -37px;
 
-    background:
-        radial-gradient(
-            ellipse at center,
-            #ffff99,
-            orange,
-            red
-        );
+    background: linear-gradient(
+        to bottom,
+        #ffffcc 0%,
+        #ffe066 20%,
+        #ff9900 55%,
+        #ff3300 100%
+    );
 
-    border-radius: 50%;
+    clip-path: polygon(
+        50% 100%,
+        85% 65%,
+        100% 20%,
+        75% 0%,
+        50% 15%,
+        25% 0%,
+        0% 20%,
+        15% 65%
+    );
 
-    opacity: 0;
+    animation: flameFlicker 0.08s infinite alternate;
 
-    pointer-events: none;
+    overflow: hidden;
+
 }
 
 @keyframes flameFlicker {

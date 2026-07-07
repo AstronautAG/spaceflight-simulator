@@ -22,6 +22,8 @@ const missionPlan = [
 let missionState = STATES.IDLE;
 let telemetryInterval = null;
 
+let timeouts = [];
+
 /* =========================
    TELEMETRY
 ========================= */
@@ -32,19 +34,32 @@ let telemetry = {
     fuel: 100
 };
 
+let isRunning = false;
+let functionOne = true;
+let functionTwo = true;
+let functionThree = true;
+
 
 
 /* =========================
    MAIN LAUNCH
 ========================= */
 
-function launchMission() {
+async function launchMission() {
 
     if (missionState !== STATES.IDLE) {
         console.log("Mission blocked — state =", missionState);
         return;
     }
 
+    if (isRunning) return;
+    isRunning = true;
+
+    if (!isRunning) {
+      return; 
+    }
+
+    await new Promise(resolve => setTimeout(resolve, 50));
     
     missionState = STATES.PRECHECK;
 
@@ -72,9 +87,9 @@ function launchMission() {
     const cargo = Number(document.getElementById("weight")?.value || 0);
 
     /* ---------- PHYSICS ---------- */
-    if (ship === "cargo") fuel -= 10000;
-    else if (ship === "explorer") fuel -= 5000;
-    else fuel -= 7500;
+    if (ship === "cargo") fuel -= 100000;
+    else if (ship === "explorer") fuel -= 50000;
+    else fuel -= 75000;
 
     fuel -= crew * 800;
     fuel -= cargo * 2;
@@ -82,7 +97,7 @@ function launchMission() {
     const mass = crew * 100;
 
     /* ---------- DESTINATION ---------- */
-    let requiredFuel = 15000;
+    let requiredFuel = 400000;
 
     /* ---------- WEATHER ---------- */
     const weather = ["Clear", "Cloudy", "Stormy", "Solar Activity"][
@@ -138,14 +153,16 @@ function launchMission() {
     ];
 
     checks.forEach((text, i) => {
-        setTimeout(() => {
+        timeouts.push(setTimeout(() => {
             consoleBox.innerHTML += text + "<br>";
-        }, i * 900);
+        }, i * 900));
     });
 
-    setTimeout(() => {
-        startCountdown(launchApproved, rocket, output, consoleBox, flame, risk, reasons);
-    }, checks.length * 900 + 500);
+    if (isRunning && functionOne) {
+        timeouts.push(setTimeout(() => {
+            startCountdown(launchApproved, rocket, output, consoleBox, flame, risk, reasons);
+        }, checks.length * 900 + 500));
+    }
 
     /* ---------- TELEMETRY RESET ---------- */
     if (telemetryInterval) clearInterval(telemetryInterval);
@@ -204,7 +221,7 @@ function startCountdown(approved, rocket, output, consoleBox, flame, risk, reaso
         if (count === 0) {
             clearInterval(interval);
 
-            if (approved) {
+            if (approved && isRunning && functionTwo) {
                 startLaunch(rocket, output, flame, risk);
             } else {
                 output.className = "fail";
@@ -234,27 +251,27 @@ function startLaunch(rocket, output, flame, risk) {
     // flame
     if (flame) {
         flame.style.opacity = "1";
-        setTimeout(() => flame.style.opacity = "0.5", 1500);
-        setTimeout(() => flame.style.opacity = "0", 4000);
+        timeouts.push(setTimeout(() => flame.style.opacity = "0.5", 1500));
+        timeouts.push(setTimeout(() => flame.style.opacity = "0", 4000));
     }
 
     // rocket animation
     rocket.style.transition = "transform 2s ease-out";
     rocket.style.transform = "translateX(-50%) translateY(-20px)";
 
-    setTimeout(() => {
+    timeouts.push(setTimeout(() => {
         rocket.style.transition = "transform 3s ease-in";
         rocket.style.transform = "translateX(-50%) translateY(-500px)";
-    }, 2000);
+    }, 2000));
 
-    setTimeout(() => {
+    timeouts.push(setTimeout(() => {
         rocket.style.transition = "transform 8s ease-in";
         rocket.style.transform = "translateX(-50%) translateY(-2500px) scale(2.5)";
         missionState = STATES.SPACE;
-    }, 5000);
+    }, 5000));
 
     //  FINAL RESULT
-    setTimeout(() => {
+    timeouts.push(setTimeout(() => {
 
 
 
@@ -267,16 +284,48 @@ function startLaunch(rocket, output, flame, risk) {
             
             
         }
+        isRunning = false;
 
      
 
         
 
     
-    }, 11000);
+    }, 11000));
 
     
 
 
+
+}
+
+function resetMission() {
+    
+    missionState = STATES.IDLE;
+    isRunning = false;
+
+    clearInterval(telemetryInterval);
+    telemetryInterval = null;
+
+    telemetry = { altitude: 0, velocity: 0, fuel: 100 };
+
+    document.body.classList.remove("space");
+
+    const rocket = document.getElementById("rocket");
+    const flame = document.querySelector(".rocket-flame");
+
+    rocket.style.transition = "none";
+    rocket.style.transform = "translateX(-50%) translateY(0)";
+
+    if (flame) {
+        flame.style.opacity = "0";
+    }
+
+    document.getElementById("console").innerHTML = "";
+    document.getElementById("ready").textContent = "";
+    document.getElementById("telemetry").innerHTML = "";
+
+    timeouts.forEach(clearTimeout);
+    timeouts = [];
 
 }
