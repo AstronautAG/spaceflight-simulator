@@ -1,9 +1,5 @@
 console.log("JS is connected");
 
-/* =========================
-   STATE SYSTEM
-========================= */
-
 const STATES = {
     IDLE: "IDLE",
     PRECHECK: "PRECHECK",
@@ -24,9 +20,6 @@ let telemetryInterval = null;
 
 let timeouts = [];
 
-/* =========================
-   TELEMETRY
-========================= */
 
 let telemetry = {
     altitude: 0,
@@ -41,9 +34,6 @@ let functionThree = true;
 
 
 
-/* =========================
-   MAIN LAUNCH
-========================= */
 
 async function launchMission() {
 
@@ -63,21 +53,21 @@ async function launchMission() {
     
     missionState = STATES.PRECHECK;
 
-    /* ---------- ELEMENTS (SAFE) ---------- */
+  
     const rocket = document.getElementById("rocket");
     const consoleBox = document.getElementById("console");
     const output = document.getElementById("ready");
     const telemetryBox = document.getElementById("telemetry");
     const flame = document.querySelector(".rocket-flame");
 
-    /* ---------- RESET UI ---------- */
+  
     consoleBox.innerHTML = "";
     output.textContent = "";
 
     rocket.style.transform = "translateX(-50%)translateY(0)";
     if (flame) flame.style.opacity = "0";
 
-    /* ---------- INPUTS ---------- */
+   
     let fuelInput = document.getElementById("fuel")?.value || "";
     let fuel = fuelInput === "" ? 50000 : Number(fuelInput);
     let reasons = [];
@@ -86,7 +76,6 @@ async function launchMission() {
     const crew = Number(document.getElementById("crew")?.value || 0);
     const cargo = Number(document.getElementById("weight")?.value || 0);
 
-    /* ---------- PHYSICS ---------- */
     if (ship === "cargo") fuel -= 100000;
     else if (ship === "explorer") fuel -= 50000;
     else fuel -= 75000;
@@ -96,10 +85,10 @@ async function launchMission() {
 
     const mass = crew * 100;
 
-    /* ---------- DESTINATION ---------- */
+    
     let requiredFuel = 400000;
 
-    /* ---------- WEATHER ---------- */
+    
     const weather = ["Clear", "Cloudy", "Stormy", "Solar Activity"][
         Math.floor(Math.random() * 4)
     ];
@@ -123,7 +112,7 @@ async function launchMission() {
     let risk = margin > 20000 ? 5 : margin > 5000 ? 20 : 60;
     if (mass > 1000) risk += 25;
 
-    /* ---------- ABORT ---------- */
+    
     if (risk > 85) {
         missionState = STATES.ABORT;
         consoleBox.innerHTML = "🚫 ABORT: SYSTEM FAILURE";
@@ -132,7 +121,7 @@ async function launchMission() {
         return;
     }
 
-    /* ---------- APPROVAL ---------- */
+    
     let launchApproved =
         fuel >= requiredFuel &&
         weather !== "Stormy" &&
@@ -141,7 +130,7 @@ async function launchMission() {
 
 
 
-    /* ---------- PRECHECK ---------- */
+    
     consoleBox.innerHTML += `[WEATHER] ${weather}<br>`;
 
     const checks = [
@@ -164,7 +153,7 @@ async function launchMission() {
         }, checks.length * 900 + 500));
     }
 
-    /* ---------- TELEMETRY RESET ---------- */
+    
     if (telemetryInterval) clearInterval(telemetryInterval);
 
     telemetry = { altitude: 0, velocity: 0, fuel: 100 };
@@ -200,9 +189,7 @@ async function launchMission() {
 
 
 
-/* =========================
-   COUNTDOWN
-========================= */
+
 
 function startCountdown(approved, rocket, output, consoleBox, flame, risk, reasons) {
 
@@ -235,9 +222,7 @@ function startCountdown(approved, rocket, output, consoleBox, flame, risk, reaso
     }, 900);
 }
 
-/* =========================
-   LAUNCH
-========================= */
+
 
 function startLaunch(rocket, output, flame, risk) {
 
@@ -248,14 +233,14 @@ function startLaunch(rocket, output, flame, risk) {
 
     document.body.classList.add("space");
 
-    // flame
+    
     if (flame) {
         flame.style.opacity = "1";
         timeouts.push(setTimeout(() => flame.style.opacity = "0.5", 1500));
         timeouts.push(setTimeout(() => flame.style.opacity = "0", 4000));
     }
 
-    // rocket animation
+    
     rocket.style.transition = "transform 2s ease-out";
     rocket.style.transform = "translateX(-50%) translateY(-20px)";
 
@@ -270,7 +255,7 @@ function startLaunch(rocket, output, flame, risk) {
         missionState = STATES.SPACE;
     }, 5000));
 
-    //  FINAL RESULT
+   
     timeouts.push(setTimeout(() => {
 
 
